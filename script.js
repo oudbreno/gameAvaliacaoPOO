@@ -1,5 +1,6 @@
 const canvas = document.getElementById('jogoCanvas')
 const ctx = canvas.getContext('2d')
+let gameOver = false;
 
 
 const teclasPressionadas = {
@@ -67,6 +68,14 @@ class Cobra extends Entidade {
     ctx.fillStyle = 'Green'
     ctx.fillRect(this.x, this.y, this.largura, this.altura)
 }
+colisaoParede(){
+    if(this.x + this.largura >= canvas.width || this.y + this.altura >= canvas.height || this.x <= 0 || this.y <= 0){
+        gameOver = true;
+        alert("Você Morreu");
+    }
+}
+
+
 }
 
 
@@ -91,6 +100,7 @@ function loop() {
    cobra.atualizar()
    comida.desenhar()
    cobra.verificarColisao(comida)
+   cobra.colisaoParede()
    requestAnimationFrame(loop)
 }
 loop()
