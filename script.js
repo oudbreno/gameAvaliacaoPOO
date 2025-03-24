@@ -65,14 +65,14 @@ class Cobra extends Entidade {
    }
 }
 class Comida extends Entidade {
-   constructor() {
-       super(Math.random()*canvas.width-10,Math.random*canvas.height - 10, 20, 20)
+   constructor(x, y, largura, altura) {
+       super(x, y, largura, altura,Math.random()*canvas.width-10,Math.random*canvas.height - 10, 20, 20)
    }
 }
 
 
 const cobra = new Cobra(100, 200, 20, 20)
-const comida = new Comida()
+const comida = new Comida(100,200,20,20)
 
 
 function loop() {
