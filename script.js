@@ -63,11 +63,21 @@ class Cobra extends Entidade {
        comida.x = Math.random()*canvas.width-10
        comida.y = Math.random()*canvas.height-10
    }
+   desenhar (){
+    ctx.fillStyle = 'Green'
+    ctx.fillRect(this.x, this.y, this.largura, this.altura)
 }
+}
+
+
 class Comida extends Entidade {
    constructor(x, y, largura, altura) {
        super(x, y, largura, altura,Math.random()*canvas.width-10,Math.random*canvas.height - 10, 20, 20)
    }
+   desenhar (){
+    ctx.fillStyle = 'Red'
+    ctx.fillRect(this.x, this.y, this.largura, this.altura)
+}
 }
 
 
