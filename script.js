@@ -1,6 +1,7 @@
 const canvas = document.getElementById('jogoCanvas')
 const ctx = canvas.getContext('2d')
 let gameOver = false;
+let pontos = 0;
 
 
 const teclasPressionadas = {
@@ -28,9 +29,14 @@ class Entidade {
        this.largura = largura
        this.altura = altura
    }
-   desenhar (){
-       ctx.fillStyle = 'black'
+   desenhar (cor){
+       ctx.fillStyle = cor
        ctx.fillRect(this.x, this.y, this.largura, this.altura)
+   }
+   desenharPontuacao(){
+    ctx.fillStyle = 'white';
+    ctx.font = '50 px Arial';
+    ctx.fillText('Pontuação: ' + pontos ,20,30);
    }
 }
 
@@ -40,6 +46,8 @@ class Cobra extends Entidade {
        super(x, y, largura, altura)
    }
    atualizar() {
+
+       if(gameOver) return;
        if (teclasPressionadas.KeyW) {
            this.y -= 7
        } else if (teclasPressionadas.KeyS) {
@@ -61,11 +69,12 @@ class Cobra extends Entidade {
        }
    }
    #houveColisao(comida){
-       comida.x = Math.random()*canvas.width-10
-       comida.y = Math.random()*canvas.height-10
+       pontos ++;
+       comida.x = Math.random()*canvas.width-20;
+       comida.y = Math.random()*canvas.height-20;
    }
    desenhar (){
-    ctx.fillStyle = 'Green'
+    ctx.fillStyle = 'greenyellow'
     ctx.fillRect(this.x, this.y, this.largura, this.altura)
 }
 colisaoParede(){
@@ -96,11 +105,15 @@ const comida = new Comida(100,200,20,20)
 
 function loop() {
    ctx.clearRect(0, 0, canvas.width, canvas.height)
-   cobra.desenhar()
-   cobra.atualizar()
-   comida.desenhar()
-   cobra.verificarColisao(comida)
-   cobra.colisaoParede()
-   requestAnimationFrame(loop)
+   cobra.desenhar();
+   cobra.atualizar();
+   comida.desenhar();
+   cobra.desenharPontuacao();
+   cobra.verificarColisao(comida);
+   cobra.colisaoParede();
+   
+   if(!gameOver){
+    requestAnimationFrame(loop)
+   }
 }
 loop()
