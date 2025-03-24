@@ -115,5 +115,6 @@ function loop() {
    if(!gameOver){
     requestAnimationFrame(loop)
    }
+   
 }
 loop()
